@@ -1,9 +1,9 @@
 import { Pool, QueryResult, QueryResultRow } from "pg";
 
-const connectionString = process.env.DATABASE_PUBLIC_URL as string;
+const connectionString = process.env.DATABASE_URL as string;
 
 if (!connectionString) {
-  throw new Error("DATABASE_PUBLIC_URL no esta configurado");
+  throw new Error("DATABASE_URL no esta configurado");
 }
 
 const pool = new Pool({

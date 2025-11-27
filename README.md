@@ -1,36 +1,154 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+## Despliegue en Railway
 
-## Getting Started
+La aplicación está desplegada en Railway utilizando el plan gratuito
 
-First, run the development server:
+- URL de producción: `https://NOMBRE-APP.up.railway.app`
 
-```bash
-npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
-```
+## Instrucciones de configuración (local y producción)
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+### Entorno local
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+1. Clonar el repositorio:
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
+   ```bash
+   git clone https://github.com/Kevs77/book-app.git
+   cd bookapp
+   Crear el archivo de entorno local a partir del archivo de ejemplo:
+   ```
 
-## Learn More
+   ```bash
 
-To learn more about Next.js, take a look at the following resources:
+   .env.example .env.local
+   Editar .env.local y completar las variables necesarias:
+   ```
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+   env
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
+DATABASE_URL=postgresql://USER:PASSWORD@HOST:PORT/DB_NAME
+JWT_SECRET=un_secreto_jwt_largo_y_aleatorio
 
-## Deploy on Vercel
+Instalar dependencias:
 
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
+      ```bash
 
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+      npm install
+      Ejecutar el entorno de desarrollo:
+      ```
+
+      ```bash
+
+      npm run dev
+      Abrir http://localhost:3000 en el navegador
+      ```
+
+### Entorno de producción (Railway)
+
+Crear un proyecto en Railway y añadir el plugin de PostgreSQL
+
+Crear un servicio Web en Railway conectado al repositorio de GitHub del proyecto
+
+Configurar las variables de entorno del servicio Web, por ejemplo:
+
+env
+
+DATABASE_URL=postgresql://USER:PASSWORD@postgres.railway.internal:5432/DB_NAME
+JWT_SECRET=un_secreto_jwt_de_produccion
+NODE_ENV=production
+Utilizar los comandos por defecto de Next.js para build y start:
+
+Build: next build
+
+Start: next start
+
+Una vez completado el despliegue, Railway proporcionará una URL pública que se documenta en la sección anterior
+
+### Archivo .env.example
+
+El repositorio incluye un archivo .env.example que sirve como plantilla para configurar las variables de entorno necesarias
+
+Ejemplo de contenido:
+
+env
+
+DATABASE_URL=postgresql://USER:PASSWORD@HOST:PORT/DB_NAME
+JWT_SECRET=your_jwt_secret_here
+
+### Tecnologías usadas
+
+El proyecto utiliza el siguiente stack tecnológico:
+
+Frontend y Backend
+
+- Next.js (App Router)
+- React
+- TypeScript
+
+Estilos
+
+- Tailwind CSS
+
+Base de datos
+
+- PostgreSQL (hosteada en Railway)
+- Cliente pg para la conexión desde la aplicación
+
+Autenticación y seguridad
+
+- bcryptjs para hash de contraseñas
+- jsonwebtoken para la generación y verificación de JWT
+- Cookies HttpOnly para el almacenamiento del token en el navegador
+
+Infraestructura y herramientas
+
+- Railway como plataforma de despliegue
+- Git y GitHub para control de versiones y repositorio remoto
+
+### Descripción del campo mood
+
+El campo mood es un atributo adicional asociado a cada reseña de libro. Su propósito es registrar el estado de categoría
+
+Características:
+
+Se almacena como texto en la columna mood de la tabla reviews
+
+Se captura a través de un campo de selección en el formulario de creación de reseñas
+
+Ejemplos de valores utilizados:
+
+- inspirador
+- nostalgico
+- terror
+- reflexivo
+- divertido
+
+### Bugs conocidos o trade-offs
+
+Algunos aspectos pendientes o decisiones conscientes de diseño son:
+
+Paginación
+
+- La lista de reseñas en /reviews no implementa paginación ni carga incremental
+- Actualmente se recuperan y muestran todas las reseñas en una sola petición
+
+Validaciones
+
+En el frontend se utilizan validaciones básicas, campos requeridos y longitudes mínimas
+La validación principal se realiza en la capa de API, donde se comprueba:
+
+- Presencia de todos los campos obligatorios
+- Rango válido de rating entre 1 y 5
+- Propiedad de la reseña antes de permitir su eliminación
+
+Restricciones en base de datos
+
+- La restricción de rating entre 1 y 5 se implementa en la lógica de la API en lugar de en la base de datos, debido a limitaciones en la configuración desde la interfaz de Railway
+
+Autenticación avanzada
+
+No se implementó un endpoint de cierre de sesión, si no directamente un boton de cambiar de usuario
+
+### Tiempo estimado que tomó hacerlo
+
+El desarrollo de la aplicación se realizó dentro del rango de tiempo previsto para un perfil junior
+
+- Tiempo aproximado invertido 3 horas
