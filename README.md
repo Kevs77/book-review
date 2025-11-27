@@ -1,8 +1,10 @@
 ## Despliegue en Railway
 
-La aplicación está desplegada en Railway utilizando el plan gratuito
+La aplicación está desplegada en Railway utilizando el plan gratuito.
 
-- URL de producción: `https://NOMBRE-APP.up.railway.app`
+- **URL de producción:** https://book-review-production-f85b.up.railway.app
+
+---
 
 ## Instrucciones de configuración (local y producción)
 
@@ -12,7 +14,8 @@ La aplicación está desplegada en Railway utilizando el plan gratuito
 
    ```bash
    git clone https://github.com/Kevs77/book-app.git
-   cd bookapp
+   cd book-app
+
    Crear el archivo de entorno local a partir del archivo de ejemplo:
    ```
 
@@ -127,8 +130,8 @@ Algunos aspectos pendientes o decisiones conscientes de diseño son:
 
 Paginación
 
-- La lista de reseñas en /reviews no implementa paginación ni carga incremental
-- Actualmente se recuperan y muestran todas las reseñas en una sola petición
+- La paginación de la página /reviews se realiza actualmente en el frontend.
+- Por cuestión de tiempo no se implementó paginación real en la API (LIMIT/OFFSET); para un entorno de producción sería recomendable mover la lógica de paginación al backend.
 
 Validaciones
 
@@ -151,4 +154,4 @@ No se implementó un endpoint de cierre de sesión, si no directamente un boton 
 
 El desarrollo de la aplicación se realizó dentro del rango de tiempo previsto para un perfil junior
 
-- Tiempo aproximado invertido 3 horas
+- Tiempo aproximado invertido 3 horas 30 minutos
