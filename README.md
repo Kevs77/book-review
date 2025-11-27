@@ -155,3 +155,7 @@ No se implementó un endpoint de cierre de sesión, si no directamente un boton 
 El desarrollo de la aplicación se realizó dentro del rango de tiempo previsto para un perfil junior
 
 - Tiempo aproximado invertido 3 horas 30 minutos
+
+### Se creativo
+
+- Se aumento, la opción editar reseña solo para los dueños, similar a la función eliminar
