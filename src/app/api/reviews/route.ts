@@ -71,8 +71,8 @@ export async function POST(req: NextRequest) {
     }
 
     await query(
-      `INSERT INTO reviews (user_id, book_title, rating, review, mood)
-       VALUES ($1, $2, $3, $4, $5)`,
+      `INSERT INTO reviews (user_id, book_title, rating, review, mood, created_at)
+       VALUES ($1, $2, $3, $4, $5, CURRENT_TIMESTAMP)`,
       [payload.userId, book_title, rating, review, mood]
     );
 
